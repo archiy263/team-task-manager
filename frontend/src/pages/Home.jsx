@@ -1,4 +1,4 @@
-import TrelloBoard from "../components/TaskBoard ";
+import TrelloBoard from "../components/TaskBoard";
 
 const Home = () => {
   return (
