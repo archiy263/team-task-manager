@@ -7,13 +7,13 @@ const generateToken = (res, userId) => {
   });
 
   const isProduction = process.env.NODE_ENV === "production";
+  const isRailway = process.env.RAILWAY_STATIC_URL || process.env.PORT; // Helper to detect cloud environment
 
   res.cookie("jwt", token, {
     httpOnly: true,
     signed: true,
-    secure: isProduction,
-    sameSite: isProduction ? "None" : "Lax",
-    domain: isProduction ? "onrender.com" : undefined,
+    secure: true, // Always true for modern browsers in production
+    sameSite: "None", // Required for cross-domain cookies
     path: "/",
     maxAge: 24 * 60 * 60 * 1000, // 1 day
   });

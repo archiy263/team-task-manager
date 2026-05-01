@@ -22,7 +22,19 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser(secret));
 app.use(
   cors({
-    origin: true,
+    origin: function (origin, callback) {
+      // allow requests with no origin (like mobile apps or curl)
+      if (!origin) return callback(null, true);
+      if (
+        origin.includes("railway.app") ||
+        origin.includes("localhost") ||
+        origin.includes("127.0.0.1")
+      ) {
+        return callback(null, true);
+      } else {
+        return callback(new Error("Not allowed by CORS"));
+      }
+    },
     credentials: true,
   })
 );
