@@ -10,7 +10,7 @@ import {
 import { setCredentials } from "../redux/features/auth/authSlice";
 import { setTasks } from "../redux/features/task/taskSlice";
 import { Folder, Plus, Trash2, Users, ChevronDown, ChevronUp, X } from "lucide-react";
-import TaskBoard from "../components/TaskBoard ";
+import TaskBoard from "../components/TaskBoard";
 
 axios.defaults.withCredentials = true;
 const API_URL = import.meta.env.VITE_BACKEND_BASE_URL || "http://localhost:3000";
