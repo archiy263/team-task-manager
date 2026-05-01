@@ -2,7 +2,12 @@ import userModel from "../models/User.js";
 import jwt from "jsonwebtoken";
 
 const protect = async (req, res, next) => {
-  const token = req.signedCookies.jwt;
+  let token = req.signedCookies.jwt;
+
+  // Check for Bearer token in Authorization header if cookie is missing
+  if (!token && req.headers.authorization && req.headers.authorization.startsWith("Bearer")) {
+    token = req.headers.authorization.split(" ")[1];
+  }
 
   if (!token) {
     return res.status(401).json({ message: "No token, authorization denied" });

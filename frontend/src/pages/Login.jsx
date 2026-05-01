@@ -46,6 +46,10 @@ function Login() {
     mutationFn: loginUser,
     onSuccess: (data) => {
       dispatch(setCredentials(data));
+      // Save token for Bearer authentication backup
+      if (data.token) {
+        localStorage.setItem("token", data.token);
+      }
       queryClient.setQueryData(["user"], data);
       toast.success("Login successful");
       navigate("/");

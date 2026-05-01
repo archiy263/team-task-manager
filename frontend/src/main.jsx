@@ -20,6 +20,20 @@ import AdminRoute from "./redux/features/auth/AdminRoute.jsx";
 
 axios.defaults.withCredentials = true;
 
+// Add a request interceptor to attach the Bearer token
+axios.interceptors.request.use(
+  (config) => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`;
+    }
+    return config;
+  },
+  (error) => {
+    return Promise.reject(error);
+  }
+);
+
 const queryClient = new QueryClient({});
 
 const router = createBrowserRouter(
